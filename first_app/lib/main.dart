@@ -34,16 +34,16 @@ class _MyAppState extends State<MyApp> {
         {'text': 'Rabbit', 'score': 3},
         {'text': 'Snack', 'score': 10},
         {'text': 'Elephant', 'score': 5},
-        {'text': 'Lion', 'score': 10}
+        {'text': 'Lion', 'score': 5}
       ]
     },
     {
       'questionText': 'Who\'s your favourite instructor?',
       'answers': [
         {'text': 'Mcebo', 'score': 6},
-        {'text': 'Xaba', 'score': 9},
+        {'text': 'Xaba', 'score': 2},
         {'text': 'Owethu', 'score': 3},
-        {'text': 'Sotomela', 'score': 8}
+        {'text': 'Sotomela', 'score': 1}
       ]
     },
   ];
