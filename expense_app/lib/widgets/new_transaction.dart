@@ -12,7 +12,7 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
-  DateTime _selectedDate;
+  DateTime selectedDate;
   final _amountController = TextEditingController();
 
   void _submitData() {
@@ -22,14 +22,14 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || selectedDate == null) {
       return;
     }
 
     widget.addTran(
       enteredTitle,
       enteredAmount,
-      _selectedDate
+      selectedDate
     );
     Navigator.of(context).pop();
   }
@@ -45,7 +45,7 @@ class _NewTransactionState extends State<NewTransaction> {
         return;
       }
       setState(() {
-        _selectedDate = value;
+        selectedDate = value;
       });
     });
   }
@@ -85,9 +85,9 @@ class _NewTransactionState extends State<NewTransaction> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      _selectedDate == null
+                      selectedDate == null
                           ? 'No date Choosen'
-                          : 'Piked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                          : 'Piked Date: ${DateFormat.yMd().format(selectedDate)}',
                     ),
                   ),
                   FlatButton(
