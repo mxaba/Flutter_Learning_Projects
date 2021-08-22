@@ -54,7 +54,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [
     Transaction(
         id: 'mcb', title: 'Eletricity', amount: 50.99, date: DateTime.now()),
@@ -66,6 +66,23 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransaction {
     return _userTransactions.where((element) {
@@ -106,40 +123,48 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery, AppBar appBar, Widget txtListWidget) {
-    return [Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Show Chart',
-          style: Theme.of(context).textTheme.title,
-        ),
-        Switch.adaptive(
-            activeColor: Theme.of(context).accentColor,
-            value: _showChart,
-            onChanged: (value) {
-              setState(() {
-                _showChart = value;
-              });
-            })
-      ],
-    ), _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child: Chart(_recentTransaction))
-                  : txtListWidget];
+  List<Widget> _buildLandscapeContent(
+      MediaQueryData mediaQuery, AppBar appBar, Widget txtListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.title,
+          ),
+          Switch.adaptive(
+              activeColor: Theme.of(context).accentColor,
+              value: _showChart,
+              onChanged: (value) {
+                setState(() {
+                  _showChart = value;
+                });
+              })
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(_recentTransaction))
+          : txtListWidget
+    ];
   }
 
-  List<Widget> _buildPortraitscapeContent(MediaQueryData mediaQuery, AppBar appBar, Widget txtListWidget){
-    return [Container(
-      height: (mediaQuery.size.height -
-      appBar.preferredSize.height -
-      mediaQuery.padding.top) *
-      0.3,
-      child: Chart(_recentTransaction)), txtListWidget];
+  List<Widget> _buildPortraitscapeContent(
+      MediaQueryData mediaQuery, AppBar appBar, Widget txtListWidget) {
+    return [
+      Container(
+          height: (mediaQuery.size.height -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.3,
+          child: Chart(_recentTransaction)),
+      txtListWidget
+    ];
   }
 
   @override
@@ -185,8 +210,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandscape) ..._buildLandscapeContent(mediaQuery, appBar, txtListWidget),
-            if (!isLandscape) ..._buildPortraitscapeContent(mediaQuery, appBar, txtListWidget), 
+            if (isLandscape)
+              ..._buildLandscapeContent(mediaQuery, appBar, txtListWidget),
+            if (!isLandscape)
+              ..._buildPortraitscapeContent(mediaQuery, appBar, txtListWidget),
           ],
         ),
       ),
