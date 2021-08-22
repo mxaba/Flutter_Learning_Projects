@@ -20,7 +20,7 @@ class TransactionList extends StatelessWidget {
                     'No transection added yet!',
                     style: Theme.of(context).textTheme.title,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
                     height: constrainsts.maxHeight * 0.6,
                     child: Image.asset(
@@ -41,7 +41,7 @@ class TransactionList extends StatelessWidget {
                   leading: CircleAvatar(
                     radius: 30,
                     child: Padding(
-                      padding: EdgeInsets.all(6),
+                      padding: const EdgeInsets.all(6),
                       child: FittedBox(
                         child: Text(
                           'R${transaction[index].amount}',
@@ -59,12 +59,12 @@ class TransactionList extends StatelessWidget {
                   trailing: MediaQuery.of(context).size.width > 360
                       ? FlatButton.icon(
                           onPressed: () => deleteTran(transaction[index].id),
-                          icon: Icon(Icons.delete),
-                          label: Text('Delete'),
+                          icon: const Icon(Icons.delete),
+                          label: const Text('Delete'),
                           textColor: Theme.of(context).errorColor,
                         )
                       : IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           color: Theme.of(context).errorColor,
                           onPressed: () => deleteTran(transaction[index].id),
                         ),
