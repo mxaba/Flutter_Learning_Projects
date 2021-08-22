@@ -9,16 +9,43 @@ import '../widgets/adaptive_button.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTran;
 
-  NewTransaction(this.addTran);
+  NewTransaction(this.addTran) {
+    print("Constructor NewTransaction Widget");
+  }
 
   @override
-  _NewTransactionState createState() => _NewTransactionState();
+  _NewTransactionState createState() {
+    print("Create State in NewTransaction Widget");
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   DateTime selectedDate;
   final _amountController = TextEditingController();
+
+  _NewTransactionState() {
+    print("Constructor NewTransaction state");
+  }
+
+  @override
+  void initState() {
+    print("initState()");
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    print("didUpdateWidget()");
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    print("Dispose()");
+    super.dispose();
+  }
 
   void _submitData() {
     if (_amountController.text.isEmpty) {
@@ -31,11 +58,7 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     }
 
-    widget.addTran(
-      enteredTitle,
-      enteredAmount,
-      selectedDate
-    );
+    widget.addTran(enteredTitle, enteredAmount, selectedDate);
     Navigator.of(context).pop();
   }
 
